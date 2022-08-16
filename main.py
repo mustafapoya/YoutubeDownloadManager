@@ -118,14 +118,11 @@ class SecondApp():
         if self.choices == "2":
             self.yt.streams.first().download(self.folderName)
 
-    def show_progress(self, streams=None, chunks=None, filehandle=None, bytes_remaining=None):
-        if bytes_remaining is not None:
-            self.percentCount = float("%0.2f" % (100 - (100 * (bytes_remaining / self.maxFileSize))))
-        else:
-            self.percentCount = 0
+    def show_progress(self, streams=None, chunks=None, filehandle=None, bytes_remaining=0):
+        self.percentCount = float("%0.2f" % (100 - (100 * (bytes_remaining / self.maxFileSize))))
 
         if(self.percentCount < 100):
-            self.loadingPercent.config(text=str(self.percentCount))
+            self.loadingPercent.config(text=self.percentCount)
         else:
             self.progressbar.stop()
             self.loadingLabel.grid_forget()
